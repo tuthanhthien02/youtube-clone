@@ -10,7 +10,7 @@ export default function HomeScreen() {
                 <CategoriesBar />
                 <Row>
                     {[...new Array(20)].map(() => (
-                        <Col lg={3} md={4}>
+                        <Col lg={3} md={4} sm={6}>
                             <Video />
                         </Col>
                     ))}

@@ -1,5 +1,16 @@
 import React from "react";
-import { Wrapper, Thumbnail, Title, Details, Channel } from "./styles/video";
+import {
+    Wrapper,
+    Thumbnail,
+    Title,
+    Details,
+    Description,
+    ChannelImage,
+    ChannelName,
+    VideoStats,
+    Views,
+    Date,
+} from "./styles/video";
 import { AiFillEye } from "react-icons/ai";
 
 export default function Video() {
@@ -12,7 +23,23 @@ export default function Video() {
                 />
                 <span>05:30</span>
             </Thumbnail>
-            <Title>
+            <Details>
+                <ChannelImage>
+                    <img
+                        src="https://yt3.ggpht.com/ytc/AKedOLS9yQ2dF63KMBnr4oB6o6vtYLlY2ehfaumZi-m6vg=s88-c-k-c0x00ffffff-no-rj"
+                        alt=""
+                    />
+                </ChannelImage>
+                <Description>
+                    <Title>Video's title</Title>
+                    <ChannelName>VTV24</ChannelName>
+                    <VideoStats>
+                        <Views>5m Views</Views>
+                        <Date>5 days ago</Date>
+                    </VideoStats>
+                </Description>
+            </Details>
+            {/* <Title>
                 <h3>Fully Functional YouTube Clone</h3>
             </Title>
             <Details>
@@ -27,7 +54,7 @@ export default function Video() {
                     alt=""
                 />
                 <p>Lẩm Bẩm 24H</p>
-            </Channel>
+            </Channel> */}
         </Wrapper>
     );
 }

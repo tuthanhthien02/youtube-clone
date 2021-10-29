@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import moment from "moment";
+import numeral from "numeral";
+import request from "../../api/api";
+import { videoAPI } from "../../api/videoAPI";
 import {
     Wrapper,
     Thumbnail,
@@ -11,50 +16,76 @@ import {
     Views,
     Date,
 } from "./styles/video";
+import { getVideoDetails } from "../../features/video/videoSlice";
 import { AiFillEye } from "react-icons/ai";
 
-export default function Video() {
+export default function Video({ video }) {
+    const dispatch = useDispatch();
+
+    const {
+        id,
+        snippet: {
+            channelId,
+            channelTitle,
+            title,
+            publishedAt,
+            thumbnails: { medium },
+        },
+    } = video;
+
+    const [views, setViews] = useState(null);
+    const [duration, setDuration] = useState(null);
+    const [channelIcon, setChannelIcon] = useState(null);
+
+    const seconds = moment.duration(duration).asSeconds();
+    const _duration = moment.utc(seconds * 1000).format("mm:ss");
+
+    const _videoId = id?.videoId || id;
+
+    useEffect(() => {
+        const videoDetails = async () => {
+            const {
+                data: { items },
+            } = await videoAPI.getVideoDetails(_videoId);
+
+            setDuration(items[0].contentDetails.duration);
+            setViews(items[0].statistics.viewCount);
+        };
+
+        videoDetails();
+    }, [_videoId]);
+
+    useEffect(() => {
+        const channelIcon = async () => {
+            const {
+                data: { items },
+            } = await videoAPI.getChannelIcon(channelId);
+
+            setChannelIcon(items[0].snippet.thumbnails.default);
+        };
+
+        channelIcon();
+    }, [channelId]);
+
     return (
         <Wrapper>
             <Thumbnail>
-                <img
-                    src="https://i.ytimg.com/vi/GMyF41IxReo/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8Jc1pP7SQpVNofi6ujtS1jJI07w"
-                    alt=""
-                />
-                <span>05:30</span>
+                <img src={medium.url} alt="" />
+                <span>{_duration}</span>
             </Thumbnail>
             <Details>
                 <ChannelImage>
-                    <img
-                        src="https://yt3.ggpht.com/ytc/AKedOLS9yQ2dF63KMBnr4oB6o6vtYLlY2ehfaumZi-m6vg=s88-c-k-c0x00ffffff-no-rj"
-                        alt=""
-                    />
+                    <img src={channelIcon?.url} alt="" />
                 </ChannelImage>
                 <Description>
-                    <Title>Video's title</Title>
-                    <ChannelName>VTV24</ChannelName>
+                    <Title>{title}</Title>
+                    <ChannelName>{channelTitle}</ChannelName>
                     <VideoStats>
-                        <Views>5m Views</Views>
-                        <Date>5 days ago</Date>
+                        <Views>{numeral(views).format("0.a")} Views</Views>
+                        <Date>{moment(publishedAt).fromNow()}</Date>
                     </VideoStats>
                 </Description>
             </Details>
-            {/* <Title>
-                <h3>Fully Functional YouTube Clone</h3>
-            </Title>
-            <Details>
-                <span>
-                    <AiFillEye /> 5m Views •
-                </span>
-                <span>5 days ago</span>
-            </Details>
-            <Channel>
-                <img
-                    src="https://yt3.ggpht.com/ytc/AKedOLS9yQ2dF63KMBnr4oB6o6vtYLlY2ehfaumZi-m6vg=s88-c-k-c0x00ffffff-no-rj"
-                    alt=""
-                />
-                <p>Lẩm Bẩm 24H</p>
-            </Channel> */}
         </Wrapper>
     );
 }

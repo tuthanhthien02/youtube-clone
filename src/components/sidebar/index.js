@@ -16,13 +16,18 @@ import {
     openSidebar,
     getSidebarToggle,
 } from "../../features/sidebar/sidebarSlice";
-import { store } from "../../app/store";
+import { logoutAuth } from "../../features/auth/authSlice";
 import { useMediaQuery } from "react-responsive";
 
 export default function Sidebar() {
     const dispatch = useDispatch();
+
     const isSidebarToggle = useSelector(getSidebarToggle);
     const isPortrait = useMediaQuery({ query: "(max-width: 768px)" });
+
+    const handleLogout = () => {
+        dispatch(logoutAuth());
+    };
 
     if (isPortrait) {
         // dispatch(openSidebar());
@@ -60,7 +65,7 @@ export default function Sidebar() {
 
             <hr />
 
-            <li>
+            <li onClick={handleLogout}>
                 <IconExitToApp size={23} />
                 <span>Log Out</span>
             </li>

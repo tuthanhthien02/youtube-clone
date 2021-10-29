@@ -10,7 +10,6 @@ export const categoriesSlice = createSlice({
     reducers: {
         setActiveElement: (state, action) => {
             state.activeElement = action.payload;
-            console.log(state.activeElement);
         },
     },
 });

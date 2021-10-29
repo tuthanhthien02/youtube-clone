@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
     font-size: 0.8rem;
     padding: 0.5rem 0;
 
-    &-::-webkit-scrollbar {
+    &::-webkit-scrollbar {
         width: 0px;
     }
     scrollbar-width: none;

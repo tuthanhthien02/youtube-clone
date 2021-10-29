@@ -4,6 +4,7 @@ import {
     setActiveElement,
     getActiveElement,
 } from "../../features/categories/categoriesSlice";
+import { getVideoByCategory } from "../../features/video/videoSlice";
 import { Wrapper, Tag } from "./styles/categoriesBar";
 
 const keywords = [
@@ -30,15 +31,20 @@ export default function CategoriesBar() {
     const dispatch = useDispatch();
     const activeElement = useSelector(getActiveElement);
 
+    const handleClick = (keyword) => {
+        dispatch(setActiveElement(keyword));
+        dispatch(getVideoByCategory(keyword));
+    };
+
     return (
         <Wrapper>
-            {keywords.map((item, index) => (
+            {keywords.map((keyword, index) => (
                 <Tag
-                    onClick={() => dispatch(setActiveElement(item))}
+                    onClick={() => handleClick(keyword)}
                     key={index}
-                    active={activeElement === item ? "true" : "false"}
+                    active={activeElement === keyword ? "true" : "false"}
                 >
-                    {item}
+                    {keyword}
                 </Tag>
             ))}
         </Wrapper>

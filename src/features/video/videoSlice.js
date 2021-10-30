@@ -79,8 +79,12 @@ const videoSlice = createSlice({
 
         [getVideoDetails.fulfilled]: (state, action) => {},
 
+        [getVideoByCategory.pending]: (state) => {
+            state.loading = true;
+        },
+
         [getVideoByCategory.fulfilled]: (state, action) => {
-            // state.videos = action.payload.videos;
+            state.loading = false;
             state.videos =
                 state.activeCategory === action.payload.category
                     ? [...state.videos, ...action.payload.videos]

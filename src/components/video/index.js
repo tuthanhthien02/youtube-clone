@@ -81,7 +81,7 @@ export default function Video({ video }) {
                     <Title>{title}</Title>
                     <ChannelName>{channelTitle}</ChannelName>
                     <VideoStats>
-                        <Views>{numeral(views).format("0.a")} Views</Views>
+                        <Views>{numeral(views).format("0.a")} views</Views>
                         <Date>{moment(publishedAt).fromNow()}</Date>
                     </VideoStats>
                 </Description>

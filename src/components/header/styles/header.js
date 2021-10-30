@@ -6,7 +6,9 @@ import { BiLeftArrowAlt } from "react-icons/bi";
 import { MdNotifications, MdApps } from "react-icons/md";
 
 export const Wrapper = styled.div`
-    position: relative;
+    position: sticky;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,6 +16,7 @@ export const Wrapper = styled.div`
     background-color: var(--black-primary);
     min-height: 10vh;
     width: 100%;
+    z-index: 10;
 
     ${media.lessThan("md")`
         padding: 0.5rem 1.5rem; 

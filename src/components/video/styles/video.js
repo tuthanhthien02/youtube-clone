@@ -68,6 +68,7 @@ export const VideoStats = styled.div`
 `;
 
 export const Views = styled.span`
+    /* letter-spacing: 1px; */
     &::after {
         content: "•";
         margin: 4px;

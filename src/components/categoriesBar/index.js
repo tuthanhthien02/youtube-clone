@@ -4,7 +4,10 @@ import {
     setActiveElement,
     getActiveElement,
 } from "../../features/categories/categoriesSlice";
-import { getVideoByCategory } from "../../features/video/videoSlice";
+import {
+    getPopularVideos,
+    getVideoByCategory,
+} from "../../features/video/videoSlice";
 import { Wrapper, Tag } from "./styles/categoriesBar";
 
 const keywords = [
@@ -33,7 +36,11 @@ export default function CategoriesBar() {
 
     const handleClick = (keyword) => {
         dispatch(setActiveElement(keyword));
-        dispatch(getVideoByCategory(keyword));
+        if (keyword === "All") {
+            dispatch(getPopularVideos());
+        } else {
+            dispatch(getVideoByCategory(keyword));
+        }
     };
 
     return (

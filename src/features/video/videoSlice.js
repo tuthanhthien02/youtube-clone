@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { videoAPI } from "../../api/videoAPI";
+import request from "../../api/api";
 
 const initialState = {
     loading: false,
@@ -11,8 +12,10 @@ const initialState = {
 
 export const getPopularVideos = createAsyncThunk(
     "video/popularVideos",
-    async (params, thunkAPI) => {
-        const res = await videoAPI.getPopularVideos();
+    async (pageToken, { dispatch, getState }) => {
+        const curPageToken = getState().video.nextPageToken;
+
+        const res = await videoAPI.getPopularVideos(curPageToken);
 
         const videos = res.data.items;
         const nextPageToken = res.data.nextPageToken;
@@ -61,7 +64,10 @@ const videoSlice = createSlice({
 
         [getPopularVideos.fulfilled]: (state, action) => {
             state.loading = false;
-            state.videos = action.payload.videos;
+            state.videos =
+                state.activeCategory === action.payload.category
+                    ? [...state.videos, ...action.payload.videos]
+                    : action.payload.videos;
             state.nextPageToken = action.payload.nextPageToken;
             state.activeCategory = action.payload.category;
         },
@@ -74,7 +80,11 @@ const videoSlice = createSlice({
         [getVideoDetails.fulfilled]: (state, action) => {},
 
         [getVideoByCategory.fulfilled]: (state, action) => {
-            state.videos = action.payload.videos;
+            // state.videos = action.payload.videos;
+            state.videos =
+                state.activeCategory === action.payload.category
+                    ? [...state.videos, ...action.payload.videos]
+                    : action.payload.videos;
             state.nextPageToken = action.payload.nextPageToken;
             state.activeCategory = action.payload.category;
         },

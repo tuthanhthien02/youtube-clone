@@ -1,14 +1,14 @@
 import request from "./api";
 
 export const videoAPI = {
-    getPopularVideos: async () => {
+    getPopularVideos: async (pageToken = "") => {
         const res = await request("/videos", {
             params: {
                 part: "snippet,contentDetails,statistics",
                 chart: "mostPopular",
-                regionCode: "",
+                regionCode: "VN",
                 maxResults: 20,
-                pageToken: "",
+                pageToken: pageToken,
             },
         });
 

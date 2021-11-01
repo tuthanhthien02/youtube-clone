@@ -83,6 +83,11 @@ const videoSlice = createSlice({
             state.loading = true;
         },
 
+        [getVideoByCategory.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
         [getVideoByCategory.fulfilled]: (state, action) => {
             state.loading = false;
             state.videos =

@@ -11,14 +11,18 @@ export default function SkeletonVideo() {
         >
             <SkeletonTheme baseColor="#343a40" highlightColor="#3c4147">
                 <Skeleton height={180} />
-                <div>
+                <div style={{ display: "flex", margin: "0.5rem" }}>
                     <Skeleton
-                        style={{ margin: "0.5rem" }}
+                        style={{ marginRight: "0.5rem" }}
                         circle
                         height={40}
                         width={40}
                     />
-                    <Skeleton height={40} width="75%" />
+                    <Skeleton
+                        containerClassName="flex-grow-1"
+                        height={40}
+                        width="100%"
+                    />
                 </div>
             </SkeletonTheme>
         </div>

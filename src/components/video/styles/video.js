@@ -15,7 +15,11 @@ export const Thumbnail = styled.div`
         width: 100%;
     }
 
-    span {
+    .lazy-load-image-background {
+        width: 100%;
+    }
+
+    .video__duration {
         position: absolute;
         /* bottom: 0.3rem;
         right: 0.3rem; */

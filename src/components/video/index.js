@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import numeral from "numeral";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import request from "../../api/api";
 import { videoAPI } from "../../api/videoAPI";
 import {
@@ -70,12 +71,14 @@ export default function Video({ video }) {
     return (
         <Wrapper>
             <Thumbnail>
-                <img src={medium.url} alt="" />
-                <span>{_duration}</span>
+                {/* <img src={medium.url} alt="" /> */}
+                <LazyLoadImage src={medium.url} effect="blur" />
+                <span className="video__duration">{_duration}</span>
             </Thumbnail>
             <Details>
                 <ChannelImage>
-                    <img src={channelIcon?.url} alt="" />
+                    {/* <img src={channelIcon?.url} alt="" /> */}
+                    <LazyLoadImage src={channelIcon?.url} effect="blur" />
                 </ChannelImage>
                 <Description>
                     <Title>{title}</Title>

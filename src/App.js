@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import styled from "styled-components/macro";
 import { Container } from "react-bootstrap";
 import { Route, Redirect, Switch, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Header from "./components/header";
 import Sidebar from "./components/sidebar";
 import HomeScreen from "./screens/homeScreen";
 import LoginScreen from "./screens/loginScreen";
-import { useSelector } from "react-redux";
+import WatchScreen from "./screens/watchScreen";
 
 const Layout = ({ children }) => {
     return (
@@ -14,7 +15,9 @@ const Layout = ({ children }) => {
             <Header />
             <Content>
                 <Sidebar />
-                <Container fluid>{children}</Container>
+                <Container className="px-4" fluid>
+                    {children}
+                </Container>
             </Content>
         </>
     );
@@ -37,14 +40,23 @@ function App() {
                     <HomeScreen />
                 </Layout>
             </Route>
+
             <Route path="/login">
                 <LoginScreen />
             </Route>
+
             <Route path="/search">
                 <Layout>
                     <h1>Search Results</h1>
                 </Layout>
             </Route>
+
+            <Route path="/watch/:id">
+                <Layout>
+                    <WatchScreen />
+                </Layout>
+            </Route>
+
             <Route>
                 <Redirect to="/" />
             </Route>

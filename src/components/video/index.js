@@ -71,13 +71,11 @@ export default function Video({ video }) {
     return (
         <Wrapper>
             <Thumbnail>
-                {/* <img src={medium.url} alt="" /> */}
                 <LazyLoadImage src={medium.url} effect="blur" />
                 <span className="video__duration">{_duration}</span>
             </Thumbnail>
             <Details>
                 <ChannelImage>
-                    {/* <img src={channelIcon?.url} alt="" /> */}
                     <LazyLoadImage src={channelIcon?.url} effect="blur" />
                 </ChannelImage>
                 <Description>

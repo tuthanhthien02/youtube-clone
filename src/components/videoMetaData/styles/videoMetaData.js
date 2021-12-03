@@ -2,6 +2,9 @@ import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
     padding-top: 1.25rem;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 export const VideoPrimaryInfo = styled.div``;
@@ -67,8 +70,6 @@ export const VideoButtonAction = styled.button`
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* padding-left: 3px;
-    padding-right: 3px; */
 
     color: #fff;
     background-color: transparent;
@@ -101,7 +102,7 @@ export const ProgressLikeBar = styled.div`
         left: 0;
         top: 0;
 
-        width: 90%;
+        width: ${(props) => (props.width ? `${props.width}%` : "0%")};
         height: 100%;
 
         background-color: #fff;
@@ -165,8 +166,9 @@ export const SubscribeButton = styled.button`
     margin: 0 4px;
     border-radius: 2px;
     border: none;
-    background-color: rgb(204, 0, 0);
-    color: #fff;
+    background-color: ${(props) =>
+        props.isSubscribed ? "rgba(255, 255, 255, 0.1)" : "rgb(204, 0, 0)"};
+    color: ${(props) => (props.isSubscribed ? "#aaa" : "#fff")};
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;

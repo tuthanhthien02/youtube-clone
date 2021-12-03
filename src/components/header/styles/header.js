@@ -146,6 +146,7 @@ export const LogoWrapper = styled.a`
     display: inline-block;
     width: 120px;
     height: 80px;
+    cursor: pointer;
 
     ${media.lessThan("sm")`
         width: 90px; 

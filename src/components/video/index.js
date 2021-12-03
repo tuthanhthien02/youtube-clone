@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import moment from "moment";
 import numeral from "numeral";
+import { useHistory } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import request from "../../api/api";
 import { videoAPI } from "../../api/videoAPI";
 import {
     Wrapper,
@@ -21,7 +20,7 @@ import { getVideoDetails } from "../../features/video/videoSlice";
 import { AiFillEye } from "react-icons/ai";
 
 export default function Video({ video }) {
-    const dispatch = useDispatch();
+    const history = useHistory();
 
     const {
         id,
@@ -42,6 +41,10 @@ export default function Video({ video }) {
     const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
     const _videoId = id?.videoId || id;
+
+    const handleVideoClick = () => {
+        history.push(`/watch/${_videoId}`);
+    };
 
     useEffect(() => {
         const videoDetails = async () => {
@@ -69,7 +72,7 @@ export default function Video({ video }) {
     }, [channelId]);
 
     return (
-        <Wrapper>
+        <Wrapper onClick={handleVideoClick}>
             <Thumbnail>
                 <LazyLoadImage src={medium.url} effect="blur" />
                 <span className="video__duration">{_duration}</span>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import numeral from "numeral";
 import ShowMoreText from "react-show-more-text";
@@ -30,18 +31,43 @@ import {
     VideoDescriptionContainer,
     VideoDescription,
 } from "./styles/videoMetaData";
+import {
+    getChannelById,
+    checkSubscriptionStatus,
+} from "../../features/channel/channelSlice";
 
-export default function VideoMetaData() {
+export default function VideoMetaData({ video, videoId }) {
+    const dispatch = useDispatch();
+
+    const { isSubscribed } = useSelector((state) => state.channel);
+    const { channel } = useSelector((state) => state.channel);
+
+    const {
+        snippet: { channelId, channelTitle, description, title, publishedAt },
+    } = video;
+
+    const {
+        statistics: { viewCount, likeCount, dislikeCount },
+    } = video;
+
+    const totalLikes = parseInt(likeCount) + parseInt(dislikeCount);
+    const progressBarWidth = parseInt((likeCount / totalLikes) * 100);
+
+    useEffect(() => {
+        dispatch(getChannelById(channelId));
+        dispatch(checkSubscriptionStatus(channelId));
+    }, [dispatch, channelId]);
+
     return (
         <Wrapper>
             <VideoPrimaryInfo>
-                <VideoTitle>[MV] NU'EST(뉴이스트) _ FACE(페이스)</VideoTitle>
+                <VideoTitle>{title}</VideoTitle>
                 <VideoPrimaryInfoDetail>
                     <div>
                         <VideoViews>
-                            {numeral(296989).format("0.a")} views
+                            {numeral(viewCount).format("0,0")} views
                         </VideoViews>
-                        <VideoDate>{moment("2021-05-11").fromNow()}</VideoDate>
+                        <VideoDate>{moment(publishedAt).fromNow()}</VideoDate>
                     </div>
 
                     <div>
@@ -53,7 +79,7 @@ export default function VideoMetaData() {
                                             <MdThumbUp />
                                         </span>
                                         <span>
-                                            {numeral(2400).format("0.a")}
+                                            {numeral(likeCount).format("0.a")}
                                         </span>
                                     </VideoButtonAction>
                                 </VideoButtonWrapper>
@@ -64,12 +90,14 @@ export default function VideoMetaData() {
                                             <MdThumbDown />
                                         </span>
                                         <span>
-                                            {numeral(200).format("0.a")}
+                                            {numeral(dislikeCount).format(
+                                                "0.a"
+                                            )}
                                         </span>
                                     </VideoButtonAction>
                                 </VideoButtonWrapper>
 
-                                <ProgressLikeBar />
+                                <ProgressLikeBar width={progressBarWidth} />
                             </div>
 
                             <div>
@@ -95,18 +123,28 @@ export default function VideoMetaData() {
                     </div>
                 </VideoPrimaryInfoDetail>
             </VideoPrimaryInfo>
+
             <VideoSecondaryInfo>
                 <VideoOwner>
                     <OwnerProfileContainer>
-                        <OwnerProfile src="https://yt3.ggpht.com/ytc/AKedOLRMb5KSHW0yr4bpgVMV3fNUPLw1rBGrscNSeWF-=s48-c-k-c0x00ffffff-no-rj" />
+                        <OwnerProfile
+                            src={channel?.snippet?.thumbnails?.default?.url}
+                        />
                     </OwnerProfileContainer>
                     <OwnerInfoContainer>
                         <OwnerInfoPrimary>
-                            <OwnerName>チャイロ - Chairo</OwnerName>
-                            <OwnerSubCount>99.6k subscribers</OwnerSubCount>
+                            <OwnerName>{channelTitle}</OwnerName>
+                            <OwnerSubCount>
+                                {numeral(
+                                    channel?.statistics.subscriberCount
+                                ).format("0.a")}{" "}
+                                subscribers
+                            </OwnerSubCount>
                         </OwnerInfoPrimary>
                         <OwnerInfoSecondary>
-                            <SubscribeButton>subscribe</SubscribeButton>
+                            <SubscribeButton isSubscribed={isSubscribed}>
+                                {isSubscribed ? "subscribed" : "subscribe"}
+                            </SubscribeButton>
                         </OwnerInfoSecondary>
                     </OwnerInfoContainer>
                 </VideoOwner>
@@ -118,15 +156,7 @@ export default function VideoMetaData() {
                         expanded={false}
                         anchorClass="showMoreText"
                     >
-                        The best time to apply for jobs is when you are not
-                        ready. You should be looking for jobs in anticipation of
-                        when you plan to start looking. Looking jobs before you
-                        are ready makes a lot of sense because you will get to
-                        test out the market before you are ready to hit your job
-                        search full time. Free Download: Don Recommends the Top
-                        10 Questions for you. Free Download: Don Recommends the
-                        Top 10 Questions for you. Free Download: Don Recommends
-                        the Top 10 Questions for you.
+                        {description}
                     </ShowMoreText>
                 </VideoDescriptionContainer>
             </VideoSecondaryInfo>

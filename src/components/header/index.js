@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
 import {
     MenuToggle,
     Menu,
@@ -23,6 +24,19 @@ import { toggleSidebar } from "../../features/sidebar/sidebarSlice";
 
 export default function Header() {
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const [input, setInput] = useState("");
+
+    const handleLogoClick = () => {
+        history.push("/");
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        history.push(`/search/${input}`);
+    };
 
     return (
         <Wrapper>
@@ -43,15 +57,22 @@ export default function Header() {
                 <MenuToggleButton onClick={() => dispatch(toggleSidebar())}>
                     <MenuToggle size={26} />
                 </MenuToggleButton>
-                <LogoWrapper href="#">
-                    <Logo
-                        src="/images/YouTube-White-Full-Color-Logo.wine.svg"
-                        alt=""
-                    />
+                <LogoWrapper>
+                    <Link to="/">
+                        <Logo
+                            src="/images/YouTube-White-Full-Color-Logo.wine.svg"
+                            alt=""
+                        />
+                    </Link>
                 </LogoWrapper>
             </Menu>
-            <Form action="">
-                <input type="text" placeholder="Search" />
+            <Form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Search"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                />
                 <button>
                     <SearchIcon size={22} />
                 </button>

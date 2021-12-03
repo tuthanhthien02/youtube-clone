@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { videoAPI } from "../../api/videoAPI";
-import request from "../../api/api";
 
 const initialState = {
     loading: false,
@@ -48,6 +47,15 @@ export const getVideoDetails = createAsyncThunk(
     "video/videoDetail",
     async (id, thunkAPI) => {
         const res = await videoAPI.getVideoDetails(id);
+
+        return res;
+    }
+);
+
+export const getRelatedVideos = createAsyncThunk(
+    "video/getRelatedVideo",
+    async (id) => {
+        const res = await videoAPI.getRelatedVideo(id);
 
         return res;
     }

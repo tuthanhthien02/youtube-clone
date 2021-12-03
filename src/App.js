@@ -8,6 +8,7 @@ import Sidebar from "./components/sidebar";
 import HomeScreen from "./screens/homeScreen";
 import LoginScreen from "./screens/loginScreen";
 import WatchScreen from "./screens/watchScreen";
+import SearchScreen from "./screens/searchScreen";
 
 const Layout = ({ children }) => {
     return (
@@ -45,9 +46,9 @@ function App() {
                 <LoginScreen />
             </Route>
 
-            <Route path="/search">
+            <Route path="/search/:query">
                 <Layout>
-                    <h1>Search Results</h1>
+                    <SearchScreen />
                 </Layout>
             </Route>
 

@@ -82,7 +82,7 @@ export default function Header() {
                 <SearchToggleIcon size={28} />
                 <MdNotificationsIcon size={28} />
                 <MdAppsIcon size={28} />
-                <UserProfile src={user.photoURL} alt={user.name} />
+                <UserProfile src={user?.photoURL} alt={user?.name} />
             </HeaderIcons>
         </Wrapper>
     );

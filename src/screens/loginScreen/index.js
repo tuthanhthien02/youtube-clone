@@ -32,7 +32,7 @@ export default function LoginScreen() {
                     alt=""
                 />
                 <button onClick={handleLogin}>Login With Google</button>
-                <p>youtube-clone is made using YOUTUBE API</p>
+                <p>youtube-clone was made using YOUTUBE API</p>
             </Container>
         </Wrapper>
     );

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideoByKeyword } from "../../features/searchedVideo/searchedVideoSlice";
@@ -17,6 +18,9 @@ export default function SearchScreen() {
 
     return (
         <Container>
+            <Helmet>
+                <title>{query} - YouTube</title>
+            </Helmet>
             {!loading ? (
                 videos?.map((video) => (
                     <VideoHorizontal

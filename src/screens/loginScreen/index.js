@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loginAuth } from "../../features/auth/authSlice";
@@ -22,6 +23,9 @@ export default function LoginScreen() {
 
     return (
         <Wrapper>
+            <Helmet>
+                <title>YouTube | Login</title>
+            </Helmet>
             <Container>
                 <Logo
                     src="/images/YouTube-White-Full-Color-Logo.wine.svg"

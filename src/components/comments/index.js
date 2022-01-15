@@ -34,6 +34,7 @@ export default function Comments({ videoId }) {
     }, [dispatch, videoId]);
 
     const accessToken = useSelector((state) => state.auth.accessToken);
+    const user = useSelector((state) => state.auth.user);
     const comments = useSelector((state) => state.comments.comments);
     const commentCount = useSelector(
         (state) => state.selectedVideo?.video?.statistics?.commentCount
@@ -69,7 +70,7 @@ export default function Comments({ videoId }) {
 
                 <CommentBoxContainer>
                     <UserProfileContainer>
-                        <UserProfile src="https://yt3.ggpht.com/yti/APfAmoFiqCE0BbpBvUO5HCzZIcVnoY8dBOAGKz1RDB5H=s48-c-k-c0x00ffffff-no-rj" />
+                        <UserProfile src={user.photoURL} />
                     </UserProfileContainer>
                     <CommentBox>
                         <CommentForm onSubmit={handleAddComment}>

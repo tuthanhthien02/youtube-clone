@@ -19,7 +19,7 @@ import {
     HeaderIcons,
     UserProfile,
 } from "./styles/header";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar } from "../../features/sidebar/sidebarSlice";
 
 export default function Header() {
@@ -27,6 +27,7 @@ export default function Header() {
     const history = useHistory();
 
     const [input, setInput] = useState("");
+    const user = useSelector((state) => state.auth.user);
 
     const handleLogoClick = () => {
         history.push("/");
@@ -81,10 +82,7 @@ export default function Header() {
                 <SearchToggleIcon size={28} />
                 <MdNotificationsIcon size={28} />
                 <MdAppsIcon size={28} />
-                <UserProfile
-                    src="https://yt3.ggpht.com/yti/APfAmoFiqCE0BbpBvUO5HCzZIcVnoY8dBOAGKz1RDB5H=s88-c-k-c0x00ffffff-no-rj-mo"
-                    alt="User Profile"
-                />
+                <UserProfile src={user.photoURL} alt={user.name} />
             </HeaderIcons>
         </Wrapper>
     );

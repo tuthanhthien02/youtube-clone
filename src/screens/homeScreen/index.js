@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "react-loading-skeleton";
@@ -33,6 +34,9 @@ export default function HomeScreen() {
 
     return (
         <div>
+            <Helmet>
+                <title>YouTube</title>
+            </Helmet>
             <Container>
                 <CategoriesBar />
                 <InfiniteScroll

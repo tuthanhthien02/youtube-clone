@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -40,6 +41,9 @@ export default function WatchScreen() {
 
     return (
         <Row>
+            <Helmet>
+                <title>{`${video?.snippet?.title} - YouTube`} </title>
+            </Helmet>
             <Col lg={8}>
                 <VideoPlayer
                     src={`https://www.youtube.com/embed/${id}`}

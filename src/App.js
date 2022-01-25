@@ -25,14 +25,14 @@ const Layout = ({ children }) => {
 };
 
 function App() {
-    const { accessToken, loading } = useSelector((state) => state.auth);
-    const history = useHistory();
+    // const { accessToken, loading } = useSelector((state) => state.auth);
+    // const history = useHistory();
 
-    useEffect(() => {
-        if (!loading && !accessToken) {
-            history.push("/login");
-        }
-    }, [accessToken, loading, history]);
+    // useEffect(() => {
+    //     if (!loading && !accessToken) {
+    //         history.push("/login");
+    //     }
+    // }, [accessToken, loading, history]);
 
     return (
         <Switch>

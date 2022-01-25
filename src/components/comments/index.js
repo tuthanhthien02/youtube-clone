@@ -70,7 +70,8 @@ export default function Comments({ videoId }) {
 
                 <CommentBoxContainer>
                     <UserProfileContainer>
-                        <UserProfile src={user.photoURL} />
+                        {/* <UserProfile src={user.photoURL} /> */}
+                        <UserProfile src="https://yt3.ggpht.com/ytc/AKedOLQrWUpvxDeiCMVVt88_iV7EJubnNpQjZgoWRjnZ=s48-c-k-c0x00ffffff-no-rj" />
                     </UserProfileContainer>
                     <CommentBox>
                         <CommentForm onSubmit={handleAddComment}>
